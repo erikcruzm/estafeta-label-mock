@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.estafeta</groupId>
-	<artifactId>mock-label</artifactId>
+	<artifactId>estafeta-label-mock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mock-label</name>
 	<description>Demo project for Spring Boot</description>
