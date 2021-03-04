@@ -1,0 +1,1488 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Swagger spec Estafeta Label",
+    "description": "This is a sample Estafeta Label",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://estafeta.com/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "WayBills",
+      "description": "Access to wayBill resrources",
+      "externalDocs": {
+        "description": "Find out more about estafeta label",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "ServiceType",
+      "description": "Everything about Service Types",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/wayBills/{reference}": {
+      "get": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to retrieve a label",
+        "description": "This is where we are suppossed to post any description for the specified endpoint",
+        "externalDocs": {
+          "description": "Learn more about User operations provided by this API.",
+          "url": "http://api.example.com/docs/user-operations/"
+        },
+        "operationId": "getLabel",
+        "parameters": [
+          {
+            "name": "reference",
+            "in": "path",
+            "description": "Reference for desired label",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WayBillIndividualResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wayBills": {
+      "post": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to create a label",
+        "operationId": "createLabel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OutputType"
+          },
+          {
+            "$ref": "#/components/parameters/OutputGroup"
+          },
+          {
+            "$ref": "#/components/parameters/ResponseMode"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request, eg. data provided out of range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden operation, eg. requested service not available for user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error, eg. something went wrong within the service",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wayBills/batch": {
+      "post": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to create a label",
+        "operationId": "createLabelBatch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OutputType"
+          },
+          {
+            "$ref": "#/components/parameters/OutputGroup"
+          },
+          {
+            "$ref": "#/components/parameters/ResponseMode"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequestBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualBatchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockBatchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionBatchResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "partially successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request, eg. data provided out of range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden operation, eg. requested service not available for user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error, eg. something went wrong within the service",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/LTL/wayBills": {
+      "post": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to create specific LTL type label",
+        "operationId": "createLabelLTL",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OutputType"
+          },
+          {
+            "$ref": "#/components/parameters/OutputGroup"
+          },
+          {
+            "$ref": "#/components/parameters/ResponseMode"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequestLTL"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request, eg. data provided out of range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden operation, eg. requested service not available for user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error, eg. something went wrong within the service",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/LTL/wayBills/batch": {
+      "post": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to create specific LTL type label",
+        "operationId": "createLabelLTLBatch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OutputType"
+          },
+          {
+            "$ref": "#/components/parameters/OutputGroup"
+          },
+          {
+            "$ref": "#/components/parameters/ResponseMode"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequestLTLBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualBatchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockBatchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionBatchResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "partially successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request, eg. data provided out of range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden operation, eg. requested service not available for user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error, eg. something went wrong within the service",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aditionalService/{aditionalService}/wayBills": {
+      "post": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to create a label for specified aditional Service",
+        "operationId": "createLabelAditionalService",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AditionalService"
+          },
+          {
+            "$ref": "#/components/parameters/OutputType"
+          },
+          {
+            "$ref": "#/components/parameters/OutputGroup"
+          },
+          {
+            "$ref": "#/components/parameters/ResponseMode"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequestAditionalService"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request, eg. data provided out of range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden operation, eg. requested service not available for user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error, eg. something went wrong within the service",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aditionalService/{aditionalService}/wayBills/batch": {
+      "post": {
+        "tags": [
+          "WayBills"
+        ],
+        "summary": "Allows user to create multiple label for specified aditional Service",
+        "operationId": "createLabelAditionalServiceBatch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AditionalService"
+          },
+          {
+            "$ref": "#/components/parameters/OutputType"
+          },
+          {
+            "$ref": "#/components/parameters/OutputGroup"
+          },
+          {
+            "$ref": "#/components/parameters/ResponseMode"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiRequestAditionalServiceBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualBatchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockBatchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionBatchResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "partially successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WayBillIndividualResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillBlockResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/WayBillPetitionResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid request, eg. data provided out of range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden operation, eg. requested service not available for user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error, eg. something went wrong within the service",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/serviceType/": {
+      "get": {
+        "tags": [
+          "ServiceType"
+        ],
+        "summary": "Returns service type availables",
+        "description": "Returns a map of values",
+        "operationId": "getServiceTypes",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "integer"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "available": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WayBillDocument": {
+        "type": "object",
+        "properties": {
+          "aditionalInfo": {
+            "type": "string",
+            "description": "Something"
+          },
+          "content": {
+            "type": "string"
+          },
+          "costCenter": {
+            "type": "string"
+          },
+          "customerShipmentId": {
+            "type": "string"
+          },
+          "referenceNumber": {
+            "type": "string"
+          },
+          "groupShipmentId": {
+            "type": "string"
+          }
+        }
+      },
+      "WayBillDocumentLTL": {
+        "type": "object",
+        "properties": {
+          "aditionalInfo": {
+            "type": "string",
+            "description": "Something"
+          },
+          "content": {
+            "type": "string"
+          },
+          "costCenter": {
+            "type": "string"
+          },
+          "customerShipmentId": {
+            "type": "string"
+          },
+          "referenceNumber": {
+            "type": "string"
+          },
+          "groupShipmentId": {
+            "type": "string"
+          },
+          "pallet": {
+            "$ref": "#/components/schemas/Pallet"
+          }
+        }
+      },
+      "Pallet": {
+        "type": "object",
+        "properties": {
+          "merchandise": {
+            "type": "string"
+          },
+          "genericContent": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "ItemDescription": {
+        "type": "object",
+        "properties": {
+          "parcelId": {
+            "type": "integer"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "length": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          }
+        }
+      },
+      "ServiceConfiguration": {
+        "type": "object",
+        "properties": {
+          "quantityOfLabels": {
+            "type": "integer"
+          },
+          "serviceTypeId": {
+            "type": "string"
+          },
+          "salesOrganization": {
+            "type": "string"
+          },
+          "effectiveDate": {
+            "type": "string"
+          },
+          "originZipCodeForRouting": {
+            "type": "string"
+          },
+          "isReturnDocument": {
+            "type": "boolean"
+          },
+          "returnDocument": {
+            "$ref": "#/components/schemas/ReturnDocument"
+          },
+          "isInsurance": {
+            "type": "boolean"
+          },
+          "insurance": {
+            "$ref": "#/components/schemas/Insurance"
+          }
+        }
+      },
+      "ServiceConfigurationAditionalService": {
+        "type": "object",
+        "properties": {
+          "quantityOfLabels": {
+            "type": "integer"
+          },
+          "serviceTypeId": {
+            "type": "string"
+          },
+          "salesOrganization": {
+            "type": "string"
+          },
+          "effectiveDate": {
+            "type": "string"
+          },
+          "originZipCodeForRouting": {
+            "type": "string"
+          },
+          "isInsurance": {
+            "type": "boolean"
+          },
+          "insurance": {
+            "$ref": "#/components/schemas/Insurance"
+          },
+          "aditionalService": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Acuse"
+              },
+              {
+                "$ref": "#/components/schemas/COD"
+              }
+            ]
+          }
+        }
+      },
+      "Acuse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "COD": {
+        "type": "object",
+        "properties": {
+          "deliveryType": {
+            "type": "string"
+          },
+          "officeCOD": {
+            "type": "string"
+          },
+          "productDescription": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "invoiceId": {
+            "type": "string"
+          },
+          "totalCharge": {
+            "type": "number"
+          }
+        }
+      },
+      "ReturnDocument": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "serviceId": {
+            "type": "string"
+          }
+        }
+      },
+      "Insurance": {
+        "type": "object",
+        "properties": {
+          "contentDescription": {
+            "type": "string"
+          },
+          "declaredValue": {
+            "type": "number"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "contact": {
+            "$ref": "#/components/schemas/Contact"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
+      "LocationLabel": {
+        "type": "object",
+        "properties": {
+          "isDRAAlternative": {
+            "type": "boolean"
+          },
+          "DRAAlternative": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/Destination"
+          }
+        }
+      },
+      "LocationLabelAditionalService": {
+        "type": "object",
+        "properties": {
+          "isDRAAlternative": {
+            "type": "boolean"
+          },
+          "DRAAlternative": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/DestinationAditionalService"
+          }
+        }
+      },
+      "Destination": {
+        "type": "object",
+        "properties": {
+          "isDeliveryToPUDO": {
+            "type": "boolean"
+          },
+          "deliveryPUDOCode": {
+            "type": "string"
+          },
+          "homeAddress": {
+            "$ref": "#/components/schemas/Location"
+          }
+        }
+      },
+      "DestinationAditionalService": {
+        "type": "object",
+        "properties": {
+          "homeAddress": {
+            "$ref": "#/components/schemas/Location"
+          }
+        }
+      },
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "corporateName": {
+            "type": "string"
+          },
+          "contactName": {
+            "type": "string"
+          },
+          "cellPhone": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "phoneExt": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "roadTypeCode": {
+            "type": "string"
+          },
+          "roadName": {
+            "type": "string"
+          },
+          "townshipCode": {
+            "type": "string"
+          },
+          "settlementTypeCode": {
+            "type": "string"
+          },
+          "settlementName": {
+            "type": "string"
+          },
+          "stateCode": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "addressReference": {
+            "type": "string"
+          },
+          "betweenRoadName1": {
+            "type": "string"
+          },
+          "betweenRoadName2": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "externalNum": {
+            "type": "string"
+          },
+          "indoorInformation": {
+            "type": "string"
+          },
+          "nave": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Error"
+        }
+      },
+      "LabelIndivResult": {
+        "type": "object",
+        "properties": {
+          "elementsCount": {
+            "type": "integer"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementIndividual"
+            }
+          },
+          "destinationAddress": {
+            "type": "string"
+          },
+          "referenceNumber": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        }
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ElementIndividual": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "wayBill": {
+            "type": "string"
+          },
+          "trackingCode": {
+            "type": "string"
+          }
+        }
+      },
+      "LabelDefinition": {
+        "type": "object",
+        "properties": {
+          "wayBillDocument": {
+            "$ref": "#/components/schemas/WayBillDocument"
+          },
+          "itemDescription": {
+            "$ref": "#/components/schemas/ItemDescription"
+          },
+          "serviceConfiguration": {
+            "$ref": "#/components/schemas/ServiceConfiguration"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationLabel"
+          }
+        }
+      },
+      "LabelDefinitionAditionalService": {
+        "type": "object",
+        "properties": {
+          "wayBillDocument": {
+            "$ref": "#/components/schemas/WayBillDocument"
+          },
+          "itemDescription": {
+            "$ref": "#/components/schemas/ItemDescription"
+          },
+          "serviceConfiguration": {
+            "$ref": "#/components/schemas/ServiceConfigurationAditionalService"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationLabelAditionalService"
+          }
+        }
+      },
+      "LabelDefinitionLTL": {
+        "type": "object",
+        "properties": {
+          "wayBillDocument": {
+            "$ref": "#/components/schemas/WayBillDocumentLTL"
+          },
+          "itemDescription": {
+            "$ref": "#/components/schemas/ItemDescription"
+          },
+          "serviceConfiguration": {
+            "$ref": "#/components/schemas/ServiceConfiguration"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationLabel"
+          }
+        }
+      },
+      "ElementBlock": {
+        "type": "object",
+        "properties": {
+          "wayBill": {
+            "type": "string"
+          },
+          "trackingCode": {
+            "type": "string"
+          }
+        }
+      },
+      "LabelBlockResult": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "elementsCount": {
+            "type": "integer"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementBlock"
+            }
+          },
+          "destinationAddress": {
+            "type": "string"
+          },
+          "referenceNumber": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        }
+      },
+      "LabelPetitionResult": {
+        "type": "object",
+        "properties": {
+          "elementsCount": {
+            "type": "integer"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementPetition"
+            }
+          },
+          "referenceNumber": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        }
+      },
+      "ElementPetition": {
+        "type": "object",
+        "properties": {
+          "wayBill": {
+            "type": "string"
+          },
+          "trackingCode": {
+            "type": "string"
+          }
+        }
+      },
+      "WayBillBlockResponse": {
+        "type": "object",
+        "properties": {
+          "labelBlockResult": {
+            "$ref": "#/components/schemas/LabelBlockResult"
+          },
+          "generatorSystems": {
+            "$ref": "#/components/schemas/GeneratorSystems"
+          }
+        }
+      },
+      "WayBillBlockBatchResponse": {
+        "type": "object",
+        "properties": {
+          "labelBlockResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelBlockResult"
+            }
+          },
+          "generatorSystems": {
+            "$ref": "#/components/schemas/GeneratorSystems"
+          }
+        }
+      },
+      "WayBillPetitionResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "labelPetitionResult": {
+            "$ref": "#/components/schemas/LabelPetitionResult"
+          }
+        }
+      },
+      "WayBillPetitionBatchResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "labelPetitionResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelPetitionResult"
+            }
+          }
+        }
+      },
+      "WayBillIndividualResponse": {
+        "type": "object",
+        "properties": {
+          "labelIndividualResult": {
+            "$ref": "#/components/schemas/LabelIndivResult"
+          },
+          "generatorSystems": {
+            "$ref": "#/components/schemas/GeneratorSystems"
+          }
+        }
+      },
+      "WayBillIndividualBatchResponse": {
+        "type": "object",
+        "properties": {
+          "labelIndividualResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelIndivResult"
+            }
+          },
+          "generatorSystems": {
+            "$ref": "#/components/schemas/GeneratorSystems"
+          }
+        }
+      },
+      "Identification": {
+        "type": "object",
+        "properties": {
+          "suscriberId": {
+            "type": "string"
+          },
+          "customerNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "SystemInformation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiRequest": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/Identification"
+          },
+          "systemInformation": {
+            "$ref": "#/components/schemas/SystemInformation"
+          },
+          "labelDefinition": {
+            "$ref": "#/components/schemas/LabelDefinition"
+          }
+        }
+      },
+      "ApiRequestBatch": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/Identification"
+          },
+          "systemInformation": {
+            "$ref": "#/components/schemas/SystemInformation"
+          },
+          "labelDefinitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelDefinition"
+            }
+          }
+        }
+      },
+      "ApiRequestLTL": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/Identification"
+          },
+          "systemInformation": {
+            "$ref": "#/components/schemas/SystemInformation"
+          },
+          "labelDefinition": {
+            "$ref": "#/components/schemas/LabelDefinitionLTL"
+          }
+        }
+      },
+      "ApiRequestLTLBatch": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/Identification"
+          },
+          "systemInformation": {
+            "$ref": "#/components/schemas/SystemInformation"
+          },
+          "labelDefinitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelDefinitionLTL"
+            }
+          }
+        }
+      },
+      "ApiRequestAditionalService": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/Identification"
+          },
+          "systemInformation": {
+            "$ref": "#/components/schemas/SystemInformation"
+          },
+          "labelDefinition": {
+            "$ref": "#/components/schemas/LabelDefinitionAditionalService"
+          }
+        }
+      },
+      "ApiRequestAditionalServiceBatch": {
+        "type": "object",
+        "properties": {
+          "identification": {
+            "$ref": "#/components/schemas/Identification"
+          },
+          "systemInformation": {
+            "$ref": "#/components/schemas/SystemInformation"
+          },
+          "labelDefinitions": {
+            "$ref": "#/components/schemas/LabelDefinitionAditionalService"
+          }
+        }
+      },
+      "GeneratorSystems": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "releasedDate": {
+            "type": "string"
+          },
+          "Versión": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "OutputGroup": {
+        "name": "outputGroup",
+        "in": "query",
+        "description": "Desired output agrupation for created labels",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "INDIVIDUAL",
+          "enum": [
+            "INDIVIDUAL",
+            "ELEMENT",
+            "REQUEST"
+          ]
+        }
+      },
+      "OutputType": {
+        "name": "outputType",
+        "in": "query",
+        "description": "Desired output format for created labels",
+        "schema": {
+          "type": "string",
+          "default": "FILE_PDF",
+          "enum": [
+            "FILE_PDF",
+            "FILE_THERMAL_SEQUENCE",
+            "SECTION_DOCUMENT"
+          ]
+        }
+      },
+      "ResponseMode": {
+        "name": "responseMode",
+        "in": "query",
+        "description": "Desired output interaction for created labels",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "default": "SYNC_INLINE",
+          "enum": [
+            "SYNC_INLINE",
+            "SYNC_REFERENCE",
+            "ASYNC"
+          ]
+        }
+      },
+      "AditionalService": {
+        "name": "aditionalService",
+        "in": "path",
+        "description": "aditionalService Id",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "ACUSE",
+            "COD"
+          ]
+        }
+      },
+      "Reference": {
+        "name": "reference",
+        "in": "path",
+        "description": "Reference for desired label",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
